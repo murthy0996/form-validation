@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>form validations</title>
+    <style>
+      ul li {
+        clear: both;
+        padding: 5px;
+      }
+      ul li label {
+        width: 150px;
+        display: block;
+        float: left;
+        margin: 0 0 10 0;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+    </style>
+    <script>
+      function validate1() {
+        var name = document.getElementById("pr_name").value;
+        var imageName = document.getElementById("pr_img").value;
+        var cost = document.getElementById("pr_cost").value;
+        var email = document.getElementById("pr_email").value;
+        female = document.getElementById("female").checked;
+        tel = document.getElementById("tel").checked;
+        hin = document.getElementById("hin").checked;
+        eng = document.getElementById("eng").checked;
+        male = document.getElementById("male").checked;
+        area = document.getElementById("area").value;
+
+        var checkEmail =
+          /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<script>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+        if (name == "") {
+          document.getElementById("pr_name_result").innerHTML =
+            "Please Enter Name";
+          document.getElementById("pr_name").focus();
+          return false;
+        } else {
+          document.getElementById("pr_name_result").innerHTML = "";
+        }
+        if (imageName == "") {
+          document.getElementById("pr_img_result").innerHTML =
+            "Please Insert Image";
+          document.getElementById("pr_img").focus();
+          return false;
+        } else {
+          document.getElementById("pr_img_result").innerHTML = "";
+        }
+        if (cost == "") {
+          document.getElementById("pr_cost_result").innerHTML =
+            "Please Enter Cost";
+          document.getElementById("pr_cost").value = "";
+          document.getElementById("pr_cost").focus();
+          return false;
+        } else if (isNaN(cost) == true) {
+          document.getElementById("pr_cost_result").innerHTML =
+            "Please Enter Numbers only";
+          document.getElementById("pr_cost").focus();
+          return false;
+        } else {
+          document.getElementById("pr_cost_result").innerHTML = "";
+        }
+        if (email == "") {
+          document.getElementById("pr_email_result").innerHTML =
+            "Please Enter Email";
+          document.getElementById("pr_email").value = "";
+          document.getElementById("pr_email").focus();
+          return false;
+        } else if (checkEmail.test(email) == false) {
+          document.getElementById("pr_email_result").innerHTML =
+            "Please Enter Valid Email";
+          document.getElementById("pr_email").focus();
+          return false;
+        } else {
+          document.getElementById("pr_cost_result").innerHTML = "";
+        }
+        if (male == false && female == false) {
+          document.getElementById("male_result").innerHTML =
+            "Please Check Male or Female";
+          document.getElementById("male").focus();
+          return false;
+        } else {
+          document.getElementById("male_result").innerHTML = "";
+          if (tel == false && eng == false && hin == false) {
+            document.getElementById("lang_result").innerHTML =
+              "Please Check Langauages";
+            document.getElementById("tel").focus();
+            return false;
+          } else {
+            document.getElementById("lang_result").innerHTML = "";
+          }
+          if (area == "") {
+            document.getElementById("area_result").innerHTML =
+              "Please select area";
+            return false;
+          } else {
+            document.getElementById("area_result").innerHTML = "";
+          }
+          return true;
+        }
+        // function validate1() {
+        //   validate();
+        // }
+      }
+    </script>
+  </head>
+  <body>
+    <form method="post" enctype="multipart/form-data" action="">
+      <ul>
+        <li>
+          <label for="pr_name">Product Name</label>
+          <input
+            type="text"
+            onblur="return  validate1()"
+            required=""
+            name="pr_name"
+            id="pr_name"
+            value=""
+          />
+          <span style="color: red" id="pr_name_result"></span>
+        </li>
+        <li>
+          <label for="pr_img">Prodcut Image</label>
+          <input type="file" onblur="validate1()" name="pr_img" id="pr_img" />
+          <span style="color: red" id="pr_img_result"></span>
+        </li>
+        <li>
+          <label for="pr_cost">Cost</label>
+          <input type="text" onblur="validate1()" name="pr_cost" id="pr_cost" />
+          <span style="color: red" id="pr_cost_result"></span>
+        </li>
+        <li>
+          <label for="pr_email">Email</label>
+          <input
+            type="email"
+            onblur="validate1()"
+            name="pr_email"
+            id="pr_email"
+          />
+          <span style="color: red" id="pr_email_result"></span>
+        </li>
+        <li>
+          <label for="gender">Gender</label>
+          Male
+          <input
+            type="radio"
+            id="male"
+            onclick="validate1()"
+            value="male"
+            name="gender"
+          />
+          Female
+          <input
+            type="radio"
+            id="female"
+            onclick="validate1()"
+            value="Female"
+            name="gender"
+          />
+          <span style="color: red" id="male_result"></span>
+        </li>
+        <br /><br />
+        Languages:
+        <br /><br />
+        Telugu :
+        <input
+          type="checkbox"
+          name="lang"
+          onclick="validate1()"
+          id="tel"
+          value="Telugu"
+        />
+        English:
+        <input
+          type="checkbox"
+          name="lang"
+          onclick="validate1()"
+          id="eng"
+          value="English"
+        />
+        Hindi:
+        <input
+          type="checkbox"
+          name="lang"
+          onclick="validate1()"
+          id="hin"
+          value="Hindi"
+        /><span style="color: red" id="lang_result"></span
+        ><br /><br />
+        Select Area
+        <select name="area" onchange="validate1()" id="area">
+          <option value="">Select Area</option>
+          <option value="Hyd">Hyderabad</option>
+          <option value="Vizag">Vizag</option>
+          <option value="Pune">Pune</option></select
+        ><span style="color: red" id="area_result"></span
+        ><br /><br /><br />
+        <li class="submit">
+          <input
+            type="submit"
+            class="l-btn"
+            onclick="return validate();"
+            name="pr_sub_btn"
+            id="pr_sub_btn"
+            value="Add Details"
+          />
+        </li>
+        <span style="color: red"
+          ><?php  if(isset($_POST['pr_sub_btn'])){ echo 
+          $errorMessage; }?></span
+        >
+        <div class="clear"></div>
+      </ul>
+      <div class="clear"></div>
+    </form>
+  </body>
+</html>
